@@ -1,6 +1,7 @@
 from utils import Client
 import os
 from dotenv import load_dotenv
+import jwt
 
 load_dotenv(override=True)
 
@@ -22,6 +23,10 @@ def main():
     headers = client.get_headers()
 
     print(f"Headers: {headers}")
+
+    token = headers["Authorization"].split(" ")[1]
+    claims = jwt.decode(token, options={"verify_signature": False})
+    print("Claims:", claims)
 
 
 if __name__ == "__main__":
